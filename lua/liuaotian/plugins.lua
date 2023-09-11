@@ -76,7 +76,7 @@ return require('packer').startup(function(use)
   -- ls补全 代码补全
   use {
     'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
+    branch = 'v2.x',
     requires = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},
