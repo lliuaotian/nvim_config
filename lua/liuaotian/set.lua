@@ -80,4 +80,3 @@ vim.opt.updatetime = 500
 -- vim.opt.colorcolumn = "80"
 -- 开启nvim-treesitter-context
 vim.cmd.TSContextEnable = true
-
