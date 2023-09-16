@@ -1,5 +1,7 @@
 -- 设置快捷键
 local builtin = require('telescope.builtin')
+-- find_files
+-- 函数中可以跟参数cwd，cwd的值就是find_files找寻文件的目录，默认为当前文件的当前目录
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 -- 根据文件内容查找文件
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
