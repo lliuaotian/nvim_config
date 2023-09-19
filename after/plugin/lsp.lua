@@ -9,11 +9,43 @@ lsp.ensure_installed({
 })
 
 local cmp = require('cmp')
+cmp.setup({
+  formatting = {
+    fields = {"abbr", "kind", "menu"},
+    format = function (entry, vim_item)
+      vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        codeium = "[AI]",
+        path = "[PATH]",
+        buffer = "[Buf]",
+      })[entry.source.name]
+      return vim_item
+    end,
+  },
+  -- nvim-cmp 设计的是根据需要安装相应的补全插件，以下sources就是安装的补全插件
+  sources = {
+    -- 应该是类似于插件之类的东西吧
+    {name = "codeium"},
+    -- {{name = "buffer"}, {option = {keyword_length = 2}}},
+    {name = "buffer"},
+    {name = "path"},
+    {name = "cmdline"},
+    {name = "nvim_lsp"},
+  },
+})
+
+-- set show window max height
+vim.opt.pumheight = 7
+
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
+  -- 貌似cmp和codeium会冲突
+  ['<C-k>'] = cmp.mapping.complete(),
   ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
   ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  ['<C-u>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+  ['<C-d>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
 })
 
 cmp_mappings['<Tab>'] = nil
